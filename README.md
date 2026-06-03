@@ -1,40 +1,51 @@
-App replica del Banco Pichincha - Pantalla de inicio
-Esta es una réplica de la pantalla de inicio de la app del Banco Pichincha, desarrollada en Android con XML y ConstraintLayout. El objetivo fue practicar la creación de interfaces fieles a un diseño real, usando animaciones con Lottie, organización de elementos en pantalla y personalización de íconos mediante tint.
+# App réplica del Banco Pichincha - Pantalla de inicio
 
-¿Qué tiene la app?
-Animación de bienvenida: Implementada con LottieAnimationView. El archivo JSON se encuentra en res/raw/banco_animation.json. Se configura para que se reproduzca automáticamente y en loop (app:lottie_autoPlay="true" y app:lottie_loop="true").
+Esta es una réplica de la pantalla de inicio de la app del Banco Pichincha, desarrollada en Android con XML y `ConstraintLayout`.  
+El objetivo fue practicar la creación de interfaces fieles a un diseño real, usando animaciones con Lottie, organización de elementos en pantalla y personalización de íconos mediante `tint`.
 
-Logo y título: Un ImageView con el logo del banco y un TextView con el nombre “BANCO PICHINCHA” en mayúsculas, color #192e63 y fuente personalizada prelo_book. Ambos están centrados respecto a la animación.
+---
 
-Mensaje de seguridad: Un TextView que dice “Cuida tus contraseñas, no las compartas con nadie.”, ubicado justo debajo de la animación.
+## ¿Qué tiene la app?
 
-Dos filas de botones con íconos y texto:
+- **Animación de bienvenida**  
+  Implementada con `LottieAnimationView`. El archivo JSON se encuentra en `res/raw/banco_animation.json`.  
+  Se configura para que se reproduzca automáticamente y en loop (`app:lottie_autoPlay="true"` y `app:lottie_loop="true"`).
 
-Primera fila: “Usuario y contraseña”, “Huella / Face ID”, “Pin de 6 dígitos”. Íconos en color #192E63.
+- **Logo y título**  
+  Un `ImageView` con el logo del banco y un `TextView` con el nombre “BANCO PICHINCHA” en mayúsculas, color `#192e63` y fuente personalizada `prelo_book`. Ambos están centrados respecto a la animación.
 
-Segunda fila: “Ubicanos”, “Clave digital”, “Llámanos”. Íconos en color #3e79a7 (azul más claro) para diferenciar visualmente los servicios.
+- **Mensaje de seguridad**  
+  Un `TextView` que dice “Cuida tus contraseñas, no las compartas con nadie.”, ubicado justo debajo de la animación.
 
-Diseño centrado y adaptable: El layout principal es un ConstraintLayout que ancla los elementos entre sí y a los bordes de la pantalla. Cada fila de botones es un LinearLayout horizontal con layout_weight="1" en cada columna, lo que distribuye el ancho equitativamente. Los tamaños de los botones están en dp (64x64) para mantener consistencia en diferentes densidades de pantalla.
+- **Dos filas de botones con íconos y texto**  
+  - **Primera fila**: “Usuario y contraseña”, “Huella / Face ID”, “Pin de 6 dígitos”. Íconos en color `#192E63`.  
+  - **Segunda fila**: “Ubicanos”, “Clave digital”, “Llámanos”. Íconos en color `#3e79a7` (azul más claro) para diferenciar visualmente los servicios.
 
-Capturas de pantalla
-(acá van tus imágenes, por ejemplo:)
+- **Diseño centrado y adaptable**  
+  El layout principal es un `ConstraintLayout` que ancla los elementos entre sí y a los bordes de la pantalla.  
+  Cada fila de botones es un `LinearLayout` horizontal con `layout_weight="1"` en cada columna, lo que distribuye el ancho equitativamente.  
+  Los tamaños de los botones están en `dp` (64x64) para mantener consistencia en diferentes densidades de pantalla.
 
-https://screenshots/home_screen.png
+---
 
-¿Cómo se ve por dentro? (código)
-El archivo activity_main.xml contiene toda la interfaz. A continuación se explica la estructura principal:
+## Capturas de pantalla
 
-ConstraintLayout como contenedor raíz. Permite posicionar la animación, el logo, el título y el mensaje con restricciones relativas (layout_constraintTop_toBottomOf, etc.).
+<img width="720" height="1600" alt="image" src="https://github.com/user-attachments/assets/d633f740-47b3-476c-9250-7f0cab961164" />
 
-LottieAnimationView ocupa un ancho de 346dp y alto 273dp, centrado tanto horizontal como verticalmente con un sesgo (vertical_bias="0.209") para dejarlo ligeramente más arriba.
+---
 
-Las filas de botones están fuera del ConstraintLayout solo en apariencia; en realidad están ancladas entre sí y al mensaje de texto y al fondo.
-Cada botón se compone de un ImageButton (sin fondo, con scaleType="fitCenter" y padding="0" para que el ícono se muestre completo) y un TextView debajo.
-Los íconos son vectores (drawables XML) y se les aplica color mediante app:tint, lo que evita tener múltiples versiones del mismo ícono.
+## ¿Cómo se ve por dentro? (código)
 
-Fragmento de ejemplo para un botón de la primera fila:
+El archivo `activity_main.xml` contiene toda la interfaz. A continuación se explica la estructura principal:
 
-xml
+- **`ConstraintLayout`** como contenedor raíz. Permite posicionar la animación, el logo, el título y el mensaje con restricciones relativas (`layout_constraintTop_toBottomOf`, etc.).
+- **`LottieAnimationView`** ocupa 346dp x 273dp, centrada con un `vertical_bias="0.209"` para dejarla un poco más arriba.
+- **Las filas de botones** son `LinearLayout` horizontales con `layout_weight="1"` para repartir el espacio. Cada botón es un `ImageButton` (64x64dp, sin fondo, `scaleType="fitCenter"`) con un `TextView` debajo.  
+  Los íconos son vectores y se les aplica color mediante `app:tint`, evitando duplicar recursos.
+
+Ejemplo de un botón de la primera fila:
+
+```xml
 <LinearLayout
     android:layout_width="0dp"
     android:layout_weight="1"
@@ -54,24 +65,3 @@ xml
         android:textColor="#192E63"
         ... />
 </LinearLayout>
-Para la segunda fila solo cambia el app:tint y el color del texto a #3e79a7.
-
-Recursos necesarios (además del código)
-Fuente: prelo_book.ttf en res/font/.
-
-Animación Lottie: Archivo JSON en res/raw/banco_animation.json.
-
-Drawables: Vectores o imágenes PNG para persona, huella, pin, ubicacion, llave y telefono en res/drawable/.
-
-Dependencia en build.gradle (nivel app):
-
-gradle
-implementation 'com.airbnb.android:lottie:6.0.0'
-¿Cómo se prueba?
-Se importa el proyecto en Android Studio.
-
-Se colocan los recursos en las carpetas correspondientes.
-
-Se compila y se ejecuta en un dispositivo o emulador (API 21+).
-
-Con esto se obtiene una pantalla inicial casi idéntica a la referencia, funcional en cuanto a diseño y animación. Los botones aún no tienen acciones (solo interfaz), pero se pueden agregar OnClickListener en la Activity.
